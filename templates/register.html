@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+
+{% block title %}Register - SkillSync AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-container {
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        padding: 80px 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    
+    .register-card {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .register-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .register-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .register-body {
+        padding: 2rem;
+        background: white;
+    }
+    
+    .input-group-text {
+        background: transparent;
+        border-right: none;
+    }
+    
+    .form-control {
+        border-left: none;
+    }
+    
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+    
+    .input-group:focus-within {
+        box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        border-radius: 0.375rem;
+    }
+    
+    .input-group:focus-within .form-control,
+    .input-group:focus-within .input-group-text {
+        border-color: #667eea;
+    }
+    
+    .password-strength {
+        height: 4px;
+        margin-top: 8px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    
+    .strength-weak { width: 33%; background: #dc3545; }
+    .strength-medium { width: 66%; background: #ffc107; }
+    .strength-strong { width: 100%; background: #28a745; }
+    
+    .role-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #e9ecef;
+        display: block;
+        width: 100%;
+        min-height: 170px;
+        position: relative;
+        padding-top: 1rem;
+    }
+    .role-card:focus {
+        outline: 3px solid rgba(102, 126, 234, 0.5);
+        outline-offset: 2px;
+    }
+    .role-card .role-label {
+        display: block;
+    }
+    .role-card .role-radio {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 22px;
+        height: 22px;
+        z-index: 3;
+        cursor: pointer;
+        opacity: 1;
+        display: inline-block;
+    }
+    
+    .role-card:hover {
+        transform: translateY(-4px);
+        border-color: #667eea;
+    }
+    
+    .role-card.selected {
+        border-color: #e9ecef;
+        background: transparent;
+        box-shadow: none;
+    }
+    .role-badge {
+        display: none !important;
+    }
+    
+    .social-btn {
+        border: 1px solid #dee2e6;
+        transition: all 0.3s ease;
+    }
+    
+    .social-btn:hover {
+        background: #f8f9fa;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="register-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="register-card" data-aos="fade-up">
+                    <div class="register-header">
+                        <i class="fas fa-user-plus fa-3x text-white mb-3"></i>
+                        <h3 class="text-white mb-0">Create Your Account</h3>
+                        <p class="text-white-50 mt-2">Join SkillSync AI and transform your career</p>
+                    </div>
+                    
+                    <div class="register-body">
+                        <form id="register-form" method="post" action="/register.html">
+                            {% csrf_token %}
+                            
+                            <!-- Role Selection -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold mb-3">I am a:</label>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="role-card card p-3 text-center" data-role="seeker" tabindex="0">
+                                            <input type="radio" class="role-radio" name="role" value="seeker" id="role-seeker" {% if form_data.role|default:'seeker' == 'seeker' %}checked{% endif %}>
+                                            <i class="fas fa-user-tie fa-2x mb-2" style="color: #667eea;"></i>
+                                            <h6 class="mb-0 fw-bold role-label">Job Seeker</h6>
+                                            <small class="text-muted">Looking for job opportunities</small>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="role-card card p-3 text-center" data-role="employer" tabindex="0">
+                                            <input type="radio" class="role-radio" name="role" value="employer" id="role-employer" {% if form_data.role|default:'seeker' == 'employer' %}checked{% endif %}>
+                                            <i class="fas fa-building fa-2x mb-2" style="color: #764ba2;"></i>
+                                            <h6 class="mb-0 fw-bold role-label">Employer</h6>
+                                            <small class="text-muted">Hiring for my company</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="username" class="form-label fw-bold">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control form-control-lg" 
+                                               id="username" name="username" 
+                                               placeholder="Choose a username"
+                                               value="{{ form_data.username|default_if_none:'' }}"
+                                               required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label fw-bold">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope text-muted"></i>
+                                        </span>
+                                        <input type="email" class="form-control form-control-lg" 
+                                               id="email" name="email" 
+                                               placeholder="your@email.com"
+                                               value="{{ form_data.email|default_if_none:'' }}"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label fw-bold">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock text-muted"></i>
+                                        </span>
+                                        <input type="password" class="form-control form-control-lg" 
+                                               id="password" name="password" 
+                                               placeholder="Create a password"
+                                               required>
+                                    </div>
+                                    <div class="password-strength"></div>
+                                    <small class="text-muted" id="password-hint"></small>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="password2" class="form-label fw-bold">Confirm Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-check-circle text-muted"></i>
+                                        </span>
+                                        <input type="password" class="form-control form-control-lg" 
+                                               id="password2" name="password2" 
+                                               placeholder="Confirm your password"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="phone" class="form-label fw-bold">Phone Number (Optional)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-phone text-muted"></i>
+                                    </span>
+                                    <input type="tel" class="form-control form-control-lg" 
+                                           id="phone" name="phone" 
+                                           placeholder="+1234567890"
+                                           value="{{ form_data.phone|default_if_none:'' }}">
+                                </div>
+                            </div>
+                            
+                            {% if form_error %}
+                                <div class="alert alert-danger">{{ form_error }}</div>
+                            {% endif %}
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and 
+                                    <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-gradient w-100 py-3 fw-bold fs-5 mb-3">
+                                <i class="fas fa-user-plus me-2"></i>Create Account
+                            </button>
+                            
+                            <div class="text-center position-relative my-4">
+                                <hr>
+                                <span class="px-3 bg-white position-absolute top-50 start-50 translate-middle text-muted">OR</span>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-outline-secondary social-btn py-2" onclick="window.location.href='/google/start/'" {% if not google_enabled %}disabled{% endif %}>
+                                    <i class="fab fa-google me-2 text-danger"></i>Sign up with Google
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary social-btn py-2" onclick="socialSignup('linkedin')">
+                                    <i class="fab fa-linkedin me-2 text-primary"></i>Sign up with LinkedIn
+                                </button>
+                            </div>
+                            {% if not google_enabled %}
+                                <div class="text-muted small mt-2">Google signup is unavailable until OAuth is configured.</div>
+                            {% endif %}
+                            
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Already have an account? 
+                                    <a href="/login.html" class="text-decoration-none fw-bold">Sign in here</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleCards = document.querySelectorAll('.role-card');
+        const roleRadios = document.querySelectorAll('.role-radio');
+
+        const selectRole = function(card) {
+            roleCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            const radio = card.querySelector('.role-radio');
+            if (radio) {
+                radio.checked = true;
+            }
+        };
+
+        roleCards.forEach(card => {
+            card.addEventListener('click', function() {
+                selectRole(this);
+            });
+            card.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    selectRole(this);
+                }
+            });
+        });
+
+        const checkedRadio = document.querySelector('.role-radio:checked');
+        const selectedRole = checkedRadio ? checkedRadio.value : 'seeker';
+        const activeCard = document.querySelector(`.role-card[data-role="${selectedRole}"]`);
+        if (activeCard) {
+            roleCards.forEach(c => c.classList.remove('selected'));
+            activeCard.classList.add('selected');
+        }
+
+        roleRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const card = this.closest('.role-card');
+                if (card) {
+                    selectRole(card);
+                }
+            });
+        });
+    });
+
+    const passwordInput = document.getElementById('password');
+    const strengthDiv = document.querySelector('.password-strength');
+    const passwordHint = document.getElementById('password-hint');
+
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+
+        if (password.length >= 8) strength++;
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+        if (password.match(/[0-9]/)) strength++;
+        if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+        strengthDiv.innerHTML = '';
+        if (password.length > 0) {
+            if (strength <= 1) {
+                strengthDiv.innerHTML = '<div class="strength-weak"></div>';
+                passwordHint.innerHTML = 'Weak password';
+                passwordHint.style.color = '#dc3545';
+            } else if (strength === 2) {
+                strengthDiv.innerHTML = '<div class="strength-medium"></div>';
+                passwordHint.innerHTML = 'Medium password';
+                passwordHint.style.color = '#ffc107';
+            } else {
+                strengthDiv.innerHTML = '<div class="strength-strong"></div>';
+                passwordHint.innerHTML = 'Strong password!';
+                passwordHint.style.color = '#28a745';
+            }
+        } else {
+            passwordHint.innerHTML = '';
+        }
+    });
+
+    function socialSignup(provider) {
+        if (typeof showToast === 'function') {
+            showToast(`${provider} signup coming soon!`, 'info');
+        } else {
+            alert(`${provider} signup coming soon!`);
+        }
+    }
+</script>
+{% endblock %}
