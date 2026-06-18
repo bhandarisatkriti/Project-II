@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',  
     'cloudinary',
     'home',
+    'cvgen',
 ]
 
 MIDDLEWARE = [

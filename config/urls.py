@@ -62,8 +62,10 @@ urlpatterns = [
     path('seeker_dashboard.html', SeekerDashboardView.as_view(), name='seeker_dashboard'),
     path('employer_dashboard.html', EmployerDashboardView.as_view(), name='employer_dashboard'),
     
-    # Mount API endpoints under /api/
-    path('api/', include('home.urls')),
+    # Mount home app URLs at root
+    path('', include('home.urls')),
+    # Mount the CV generation app under /cv/
+    path('cv/', include('cvgen.urls', namespace='cvgen')),
 ]
 
 # Serve static and media files in development

@@ -2,83 +2,135 @@
 
 {% block title %}SkillSync AI - Smart Career Matching Platform{% endblock %}
 
+{% block extra_css %}
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-decoration {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-decoration.top-circle {
+        width: 320px;
+        height: 320px;
+        top: -80px;
+        left: -80px;
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    .hero-decoration.bottom-circle {
+        width: 260px;
+        height: 260px;
+        bottom: -60px;
+        right: -60px;
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-section .card {
+        position: relative;
+        z-index: 1;
+        border-radius: 28px;
+    }
+
+    .hero-section .badge {
+        letter-spacing: 0.08em;
+    }
+
+    .hero-section .btn-outline-light {
+        border-color: rgba(255,255,255,0.6);
+    }
+
+    .hero-section .btn-outline-light:hover {
+        background: rgba(255,255,255,0.12);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <!-- Hero Section -->
-<section class="hero-section min-vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-    <div class="container">
+<section class="hero-section min-vh-100 d-flex align-items-center position-relative overflow-hidden" style="background: radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,.12), transparent 15%), linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="hero-decoration top-circle"></div>
+    <div class="hero-decoration bottom-circle"></div>
+    <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-7 text-white" data-aos="fade-right">
+                <span class="badge bg-white text-dark rounded-pill px-4 py-2 shadow-sm mb-4">AI Career Intelligence</span>
                 <h1 class="display-3 fw-bold mb-4">
-                    Your AI-Powered<br>
-                    <span class="text-warning">Career Companion</span>
+                    Launch your career with
+                    <span class="text-warning">smarter job matches</span>
                 </h1>
-                <p class="lead mb-4 fs-4">
-                    Revolutionize your job search with intelligent matching, skill analysis, 
-                    and personalized career guidance powered by cutting-edge AI technology.
+                <p class="lead mb-4 fs-5 text-white-75">
+                    SkillSync AI uses advanced matching, resume optimization, and skill gap analysis to help you get noticed by recruiters and land the right opportunities faster.
                 </p>
                 <div class="d-flex gap-3 flex-wrap">
-                    <a href="/register.html" class="btn btn-light btn-lg px-5 py-3 fw-bold">
-                        <i class="fas fa-rocket me-2"></i>Get Started Free
+                    <a href="/register.html" class="btn btn-light btn-lg px-5 py-3 fw-bold shadow-sm">
+                        <i class="fas fa-rocket me-2"></i>Join Free
                     </a>
                     <a href="#how-it-works" class="btn btn-outline-light btn-lg px-5 py-3">
-                        <i class="fas fa-play me-2"></i>How It Works
+                        <i class="fas fa-play me-2"></i>See how it works
                     </a>
                 </div>
-                
-                <div class="row mt-5 pt-4">
+                <div class="row mt-5 pt-4 g-3">
                     <div class="col-4">
-                        <div class="stat-number">
-                            <h2 class="text-white fw-bold display-6">10K+</h2>
+                        <div class="rounded-4 p-4 bg-white bg-opacity-10">
+                            <h2 class="text-white fw-bold display-6 mb-1">10K+</h2>
                             <p class="text-white-50 mb-0">Active Jobs</p>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="stat-number">
-                            <h2 class="text-white fw-bold display-6">50K+</h2>
+                        <div class="rounded-4 p-4 bg-white bg-opacity-10">
+                            <h2 class="text-white fw-bold display-6 mb-1">50K+</h2>
                             <p class="text-white-50 mb-0">Happy Users</p>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="stat-number">
-                            <h2 class="text-white fw-bold display-6">95%</h2>
+                        <div class="rounded-4 p-4 bg-white bg-opacity-10">
+                            <h2 class="text-white fw-bold display-6 mb-1">95%</h2>
                             <p class="text-white-50 mb-0">Match Accuracy</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="col-lg-5 mt-5 mt-lg-0" data-aos="fade-left">
-                <div class="card bg-white rounded-4 shadow-lg overflow-hidden">
-                    <div class="card-body p-0">
-                        <div class="bg-gradient p-4 text-white text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <h4 class="mb-0"><i class="fas fa-search me-2"></i>Quick Job Search</h4>
+                <div class="card border-0 shadow-lg rounded-5 overflow-hidden" style="background: rgba(255,255,255,.96); backdrop-filter: blur(12px);">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <h5 class="fw-bold mb-1">Quick Job Search</h5>
+                                <p class="text-muted mb-0">Find ideal roles based on your experience.</p>
+                            </div>
+                            <div class="badge bg-gradient text-white py-2 px-3 rounded-pill">Fast</div>
                         </div>
-                        <div class="p-4">
-                            <form id="quick-job-search">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Job Title / Keyword</label>
-                                    <input type="text" class="form-control form-control-lg" 
-                                           placeholder="e.g., Software Engineer">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Location</label>
-                                    <input type="text" class="form-control form-control-lg" 
-                                           placeholder="e.g., Remote, New York">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Experience Level</label>
-                                    <select class="form-select form-select-lg">
-                                        <option>Entry Level (0-2 years)</option>
-                                        <option>Mid Level (3-5 years)</option>
-                                        <option>Senior Level (6+ years)</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-gradient w-100 py-3 fw-bold fs-5">
-                                    <i class="fas fa-search me-2"></i>Search Jobs
-                                </button>
-                            </form>
-                        </div>
+                        <form id="quick-job-search">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Job Title / Keyword</label>
+                                <input type="text" class="form-control form-control-lg border-0 shadow-sm" placeholder="e.g., Software Engineer">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Location</label>
+                                <input type="text" class="form-control form-control-lg border-0 shadow-sm" placeholder="e.g., Remote, New York">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Experience Level</label>
+                                <select class="form-select form-select-lg border-0 shadow-sm">
+                                    <option>Entry Level (0-2 years)</option>
+                                    <option>Mid Level (3-5 years)</option>
+                                    <option>Senior Level (6+ years)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-gradient w-100 py-3 fw-bold fs-5">
+                                <i class="fas fa-search me-2"></i>Search Jobs
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

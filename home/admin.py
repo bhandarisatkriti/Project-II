@@ -4,7 +4,7 @@ from django.contrib import admin
 # apps/accounts/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, UserProfile
+from .models import JobSeekerProfile, User, UserProfile
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'username', 'role', 'is_active', 'created_at')
@@ -27,3 +27,4 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserProfile)
+admin.site.register(JobSeekerProfile)

@@ -18,16 +18,26 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-2">
 	<div class="container">
-		<a class="navbar-brand fw-bold" href="/">SkillSync AI</a>
+		<a class="navbar-brand d-flex align-items-center gap-2" href="/">
+			<span class="brand-mark rounded-circle d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:700">S</span>
+			<span class="fw-bold">SkillSync AI</span>
+		</a>
+
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+
 		<div class="collapse navbar-collapse" id="nav">
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a class="nav-link" href="/register.html">Register</a></li>
-				<li class="nav-item"><a class="nav-link" href="/login.html">Login</a></li>
+			<ul class="navbar-nav ms-auto align-items-lg-center">
+				
+				<li class="nav-item me-3">
+					<a href="/register.html" class="btn btn-outline-secondary btn-sm">Register</a>
+				</li>
+				<li class="nav-item">
+					<a href="/login.html" class="btn btn-gradient btn-sm">Sign in</a>
+				</li>
 			</ul>
 		</div>
 	</div>

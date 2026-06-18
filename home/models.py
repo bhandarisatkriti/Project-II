@@ -86,3 +86,34 @@ class UserProfile(models.Model):
     class Meta:
         db_table = 'user_profiles'
         ordering = ['-created_at']
+
+
+class JobSeekerProfile(models.Model):
+    """Job seeker profile data for generating CVs."""
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=50, blank=True)
+    address = models.CharField(max_length=500, blank=True)
+    education = models.TextField(blank=True, help_text='Use separate lines for each education entry.')
+    skills = models.TextField(blank=True, help_text='List your skills separated by commas or new lines.')
+    work_experience = models.TextField(blank=True, help_text='Use separate lines for each work experience entry.')
+    projects = models.TextField(blank=True, help_text='Use separate lines for each project entry.')
+    certifications = models.TextField(blank=True, help_text='Use separate lines for each certification.')
+    linkedin_url = models.URLField(blank=True)
+    github_url = models.URLField(blank=True)
+    profile_photo = models.FileField(
+        upload_to='jobseeker_photos/',
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'])],
+        help_text='Optional profile photo for reference and record-keeping.'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Job Seeker CV for {self.full_name or self.email}"
+
+    class Meta:
+        db_table = 'job_seeker_profiles'
+        ordering = ['-created_at']

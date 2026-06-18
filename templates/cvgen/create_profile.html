@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Professional CV Builder - SkillSync AI{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+    <div class="container">
+        <div class="cv-form-card">
+            <div class="hero-panel">
+                <div>
+                    <span class="hero-badge"><i class="fas fa-shield-alt"></i> Professional CV Builder</span>
+                    <h1>Create a recruiter-ready CV fast</h1>
+                    <p class="lead">Use this dedicated CV builder to generate a polished, ATS-friendly PDF designed for hiring teams, recruiters, and professional applications.</p>
+                    <div class="benefits-grid">
+                        <div class="benefit-pill"><i class="fas fa-check-circle"></i> ATS optimized</div>
+                        <div class="benefit-pill"><i class="fas fa-check-circle"></i> Clean and modern format</div>
+                        <div class="benefit-pill"><i class="fas fa-check-circle"></i> Instant PDF download</div>
+                    </div>
+                </div>
+                <div class="summary-panel d-none d-lg-flex">
+                    <div class="summary-card">
+                        <h3>How it works</h3>
+                        <p class="summary-text">Complete the form sections, submit your profile, and receive a PDF CV optimized for modern hiring workflows.</p>
+                        <ol class="summary-list">
+                            <li>Enter your education, skills and experience.</li>
+                            <li>Review your details and submit.</li>
+                            <li>Download your formatted CV instantly.</li>
+                        </ol>
+                        <a href="/" class="btn btn-outline-secondary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="row gy-4">
+                    <div class="col-12 section-block">
+                        <div class="section-header-row">
+                            <div>
+                                <h2 class="section-heading">Personal Details</h2>
+                                <p class="section-support">Add full contact details for a strong professional introduction.</p>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.full_name.id_for_label }}"><i class="fas fa-user"></i>{{ form.full_name.label }} *</label>
+                                {{ form.full_name }}
+                                {% if form.full_name.errors %}
+                                    <div class="text-danger mt-1">{{ form.full_name.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.email.id_for_label }}"><i class="fas fa-envelope"></i>{{ form.email.label }} *</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger mt-1">{{ form.email.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.phone_number.id_for_label }}"><i class="fas fa-phone"></i>{{ form.phone_number.label }}</label>
+                                {{ form.phone_number }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.address.id_for_label }}"><i class="fas fa-map-marker-alt"></i>{{ form.address.label }}</label>
+                                {{ form.address }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 section-block">
+                        <div class="section-header-row">
+                            <div>
+                                <h2 class="section-heading">Career Summary</h2>
+                                <p class="section-support">Outline your education and skill highlights for a strong first impression.</p>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.education.id_for_label }}"><i class="fas fa-graduation-cap"></i>{{ form.education.label }}</label>
+                                {{ form.education }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.skills.id_for_label }}"><i class="fas fa-lightbulb"></i>{{ form.skills.label }}</label>
+                                {{ form.skills }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 section-block">
+                        <div class="section-header-row">
+                            <div>
+                                <h2 class="section-heading">Professional Background</h2>
+                                <p class="section-support">Describe your experience, projects, and certifications clearly and concisely.</p>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="{{ form.work_experience.id_for_label }}"><i class="fas fa-briefcase"></i>{{ form.work_experience.label }}</label>
+                                {{ form.work_experience }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="{{ form.projects.id_for_label }}"><i class="fas fa-folder-open"></i>{{ form.projects.label }}</label>
+                                {{ form.projects }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="{{ form.certifications.id_for_label }}"><i class="fas fa-certificate"></i>{{ form.certifications.label }}</label>
+                                {{ form.certifications }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 section-block">
+                        <div class="section-header-row">
+                            <div>
+                                <h2 class="section-heading">Online Profiles</h2>
+                                <p class="section-support">Provide your public links so employers can review your portfolio or GitHub work.</p>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.linkedin_url.id_for_label }}"><i class="fab fa-linkedin"></i>{{ form.linkedin_url.label }}</label>
+                                {{ form.linkedin_url }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.github_url.id_for_label }}"><i class="fab fa-github"></i>{{ form.github_url.label }}</label>
+                                {{ form.github_url }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="{{ form.profile_photo.id_for_label }}"><i class="fas fa-image"></i>{{ form.profile_photo.label }}</label>
+                                {{ form.profile_photo }}
+                            </div>
+                        </div>
+                        <p class="section-support">Your profile photo is optional and helps store your profile nicely.</p>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-footer">
+                            <p>Ready to generate your professional CV? Submit the form and download the PDF immediately.</p>
+                            <button type="submit" class="btn btn-gradient btn-lg">Generate CV</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
